@@ -1,0 +1,110 @@
+.landing-root {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 12px;
+  min-height: unset;
+  height: 100vh;
+  box-sizing: border-box; /* Add some bottom padding */
+}
+
+.landing-hero {
+  width: 100%;
+  max-width: 700px;
+  margin: 32px auto 18px auto; /* Reduce top/bottom margin */
+  text-align: center;
+}
+
+.landing-hero h1 {
+  font-size: 2.3rem; /* Slightly smaller */
+  margin-bottom: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.landing-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+  color: #e0e7ff;
+  line-height: 1.4;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.landing-btn {
+  padding: 10px 28px;
+  font-size: 1rem;
+  background: #fff;
+  color: #764ba2;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(118, 75, 162, 0.08);
+  transition: background 0.2s, color 0.2s;
+}
+
+.landing-btn.primary {
+  background: #ff6b6b;
+  color: #fff;
+}
+
+.landing-btn:hover {
+  background: #e0e7ff;
+  color: #764ba2;
+}
+
+.landing-btn.primary:hover {
+  background: #e55b5b;
+  color: #fff;
+}
+
+.landing-features {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px 12px;
+  margin: 0 auto 18px auto;
+  max-width: 600px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.landing-features h2 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: #fffbe7;
+}
+
+.landing-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.landing-features li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.landing-features strong {
+  color: #fffbe7;
+}
+
+.landing-footer {
+  margin-top: 12px;
+  padding: 10px 0 6px 0;
+  text-align: center;
+  color: #e0e7ff;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
