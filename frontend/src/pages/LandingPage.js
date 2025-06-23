@@ -11,8 +11,8 @@ function LandingPage() {
         <p className="landing-subtitle">
           Your instant plant health companion.
           <br />
-          Upload a leaf image and get smart disease analysis powered by AI &
-          Gemini!
+          Upload a leaf image and get smart disease analysis powered by
+          LeafGuard AI!
         </p>
         <div className="landing-actions">
           <Link to="/login">
@@ -24,26 +24,32 @@ function LandingPage() {
         </div>
       </header>
 
+      {/* ✅ Updated Features Section */}
       <section className="landing-features">
         <h2>Why use this bot?</h2>
-        <ul>
-          <li>
-            🌱 <strong>Instant Diagnosis:</strong> Upload a leaf image and get
-            results in seconds.
-          </li>
-          <li>
-            🤖 <strong>AI-Powered:</strong> Uses advanced machine learning and
-            Gemini for accurate analysis.
-          </li>
-          <li>
-            📚 <strong>Detailed Info:</strong> Get symptoms, explanations, and
-            treatment suggestions.
-          </li>
-          <li>
-            🕒 <strong>Chat History:</strong> Review your previous uploads and
-            results anytime.
-          </li>
-        </ul>
+        <div className="feature-cards">
+          <div className="feature-card fade-in delay-1">
+            <h3>🌱 Instant Diagnosis</h3>
+            <p>Upload a leaf image and get results in seconds.</p>
+          </div>
+          <div className="feature-card fade-in delay-2">
+            <h3>🤖 AI-Powered</h3>
+            <p>
+              Uses advanced machine learning and Gemini for accurate analysis.
+            </p>
+          </div>
+          <div className="feature-card fade-in delay-3">
+            <h3>📚 Detailed Info</h3>
+            <p>
+              Get symptoms, explanations, and treatment suggestions for each
+              disease.
+            </p>
+          </div>
+          <div className="feature-card fade-in delay-4">
+            <h3>🕒 Chat History</h3>
+            <p>Review your previous uploads and results anytime.</p>
+          </div>
+        </div>
       </section>
 
       <footer className="landing-footer">

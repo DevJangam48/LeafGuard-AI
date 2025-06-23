@@ -1,110 +1,185 @@
+/* src/pages/LandingPage.css */
+
 .landing-root {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
+  background: url("https://www.solidbackgrounds.com/download/2560x1440-little-green-leaves-free-website-background-image.jpg")
+    no-repeat center center fixed;
+  background-size: cover;
+  height: 93.3vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding-bottom: 12px;
-  min-height: unset;
-  height: 100vh;
-  box-sizing: border-box; /* Add some bottom padding */
+  color: #ffffff;
+  padding: 1.5rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
 }
 
 .landing-hero {
-  width: 100%;
-  max-width: 700px;
-  margin: 32px auto 18px auto; /* Reduce top/bottom margin */
   text-align: center;
+  padding: 1.5rem 1rem;
+  background: transparent;
+  border-radius: 1rem;
+  margin: 0 auto;
+  max-width: 750px;
+  animation: fadeInDown 1s ease-out;
 }
 
 .landing-hero h1 {
-  font-size: 2.3rem; /* Slightly smaller */
-  margin-bottom: 10px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 2.9rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 1rem;
 }
 
 .landing-subtitle {
-  font-size: 1.1rem;
-  margin-bottom: 18px;
-  color: #e0e7ff;
-  line-height: 1.4;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
 }
 
 .landing-actions {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  margin-bottom: 18px;
+  margin-top: 1.5rem;
 }
 
 .landing-btn {
-  padding: 10px 28px;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 0.6rem 1.6rem;
   font-size: 1rem;
-  background: #fff;
-  color: #764ba2;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
+  border-radius: 30px;
+  margin: 0 10px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(118, 75, 162, 0.08);
-  transition: background 0.2s, color 0.2s;
+  transition: 0.3s ease-in-out;
 }
 
 .landing-btn.primary {
-  background: #ff6b6b;
-  color: #fff;
+  background-color: #0a7742;
+  border: none;
 }
 
 .landing-btn:hover {
-  background: #e0e7ff;
-  color: #764ba2;
-}
-
-.landing-btn.primary:hover {
-  background: #e55b5b;
-  color: #fff;
+  transform: scale(1.05);
+  background-color: rgba(10, 119, 66, 0.7);
 }
 
 .landing-features {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 18px 12px;
-  margin: 0 auto 18px auto;
-  max-width: 600px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  background: transparent;
+  text-align: center;
+  animation: fadeInUp 1s ease-in-out;
 }
 
 .landing-features h2 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-  color: #fffbe7;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .landing-features ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
 }
 
 .landing-features li {
+  margin: 0.4rem auto;
   font-size: 1rem;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.landing-features strong {
-  color: #fffbe7;
+  max-width: 600px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .landing-footer {
-  margin-top: 12px;
-  padding: 10px 0 6px 0;
   text-align: center;
-  color: #e0e7ff;
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  background: transparent;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.feature-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.feature-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 1rem;
+  width: 220px;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  font-size: 1.2rem; /* Increased font size */
+  font-weight: 700;
+}
+
+.feature-card:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.feature-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
   font-size: 0.95rem;
-  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+/* Fade-in Animation */
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.2s;
+}
+.delay-2 {
+  animation-delay: 0.4s;
+}
+.delay-3 {
+  animation-delay: 0.6s;
+}
+.delay-4 {
+  animation-delay: 0.8s;
 }
