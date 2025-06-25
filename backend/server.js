@@ -168,7 +168,9 @@ app.post("/predict", upload.single("image"), (req, res) => {
           console.error("JWT decode failed:", err);
         }
       }
-      const imageUrl = req.file ? `/uploads/${req.file.filename}` : "";
+      const imageUrl = req.file
+        ? `https://leafguard-ai-backend.onrender.com/uploads/${req.file.filename}`
+        : "";
 
       const newChat = await Chat.create({
         userEmail,
