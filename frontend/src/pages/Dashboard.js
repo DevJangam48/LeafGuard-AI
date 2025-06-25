@@ -41,7 +41,7 @@ function Dashboard() {
 
       const token = localStorage.getItem("token"); // <-- Get the JWT token
 
-      const res = await fetch("http://localhost:5000/predict", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/predict`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // <-- Add the Authorization header
@@ -81,9 +81,12 @@ function Dashboard() {
   const fetchHistory = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:5000/chat-history", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/chat-history`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await res.json();
       setChatHistory(Array.isArray(data) ? data : []);
       // Always select the most recent chat (first in array)
@@ -103,7 +106,7 @@ function Dashboard() {
     setQueryAnswer("");
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:5000/ask", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/ask`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,10 +147,13 @@ function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this chat?")) return;
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:5000/chat/${chatId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/chat/${chatId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         setChatHistory((prev) => prev.filter((c) => c._id !== chatId));
@@ -189,7 +195,7 @@ function Dashboard() {
               style={{ cursor: "pointer", position: "relative" }}
             >
               <img
-                src={`http://localhost:5000${chat.imageUrl}`}
+                src={`${process.env.REACT_APP_BACKEND_URL}${chat.imageUrl}`}
                 alt="Upload"
                 width="100"
               />
@@ -238,7 +244,7 @@ function Dashboard() {
                   <strong>You uploaded:</strong>
                   <br />
                   <img
-                    src={`http://localhost:5000${selectedChat.imageUrl}`}
+                    src={`${process.env.REACT_APP_BACKEND_URL}${selectedChat.imageUrl}`}
                     alt="Upload"
                     width="180"
                     style={{ borderRadius: "8px", marginTop: "8px" }}
