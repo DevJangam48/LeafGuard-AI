@@ -194,11 +194,7 @@ function Dashboard() {
               onClick={() => setSelectedChat(chat)}
               style={{ cursor: "pointer", position: "relative" }}
             >
-              <img
-                src={`${process.env.REACT_APP_BACKEND_URL}${chat.imageUrl}`}
-                alt="Upload"
-                width="100"
-              />
+              <img src={`{chat.imageUrl}`} alt="Upload" width="100" />
               <p>
                 <strong>{chat.prediction}</strong>
               </p>
