@@ -54,17 +54,11 @@ function Dashboard() {
         //      setPrediction(data.prediction);
         //     setGeminiInfo(data.info);
         setImageUrl(data.imageUrl);
-        if (res.ok) {
-          setImageUrl(data.imageUrl);
-
-          if (data.newChat) {
-            setChatHistory((prev) => [data.newChat, ...prev]);
-            setSelectedChat(data.newChat);
-          } else {
-            fetchHistory(); // fallback if newChat not returned
-          }
+        if (data.newChat) {
+          setChatHistory((prev) => [data.newChat, ...prev]);
+          setSelectedChat(data.newChat);
         } else {
-          alert(data.error || "Prediction failed");
+          fetchHistory(); // fallback if newChat not returned
         }
       } else {
         alert(data.error || "Prediction failed");
@@ -88,6 +82,8 @@ function Dashboard() {
         }
       );
       const data = await res.json();
+      console.log("Fetched chat history:", data);
+
       setChatHistory(Array.isArray(data) ? data : []);
       // Always select the most recent chat (first in array)
       if (data.length > 0) {
@@ -194,7 +190,11 @@ function Dashboard() {
               onClick={() => setSelectedChat(chat)}
               style={{ cursor: "pointer", position: "relative" }}
             >
-              <img src={`{chat.imageUrl}`} alt="Upload" width="100" />
+              <img
+                src={`${process.env.REACT_APP_BACKEND_URL}${chat.imageUrl}`}
+                alt="Upload"
+                width="100"
+              />
               <p>
                 <strong>{chat.prediction}</strong>
               </p>
