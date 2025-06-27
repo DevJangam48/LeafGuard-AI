@@ -82,7 +82,6 @@ function Dashboard() {
         }
       );
       const data = await res.json();
-      console.log("Fetched chat history:", data);
 
       setChatHistory(Array.isArray(data) ? data : []);
       // Always select the most recent chat (first in array)
