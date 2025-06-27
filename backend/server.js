@@ -32,22 +32,7 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", userSchema);
 
-// ✅ Middleware
-const allowedOrigins = ["https://leafguard-ai.onrender.com"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // allow requests with no origin (like mobile apps, Postman)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -105,19 +90,33 @@ app.post("/login", async (req, res) => {
 });
 
 // ✅ Prediction Route
-app.post("/predict", upload.single("image"), (req, res) => {
+app.post("/predict", upload.single("image"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No image uploaded" });
   }
 
   const imagePath = req.file.path;
 
+  // 🔐 Extract user email from token (before async)
+  const token = req.headers.authorization?.split(" ")[1];
+  let userEmail = "anonymous";
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, SECRET_KEY);
+      userEmail = decoded.email;
+    } catch (err) {
+      console.error("JWT decode failed:", err);
+    }
+  }
+
+  // 🧠 Spawn Python process
   const pythonProcess = spawn("python", [
     "../ml_models/cnn_model.py",
     imagePath,
   ]);
 
   let predictionOutput = "";
+
   pythonProcess.stdout.on("data", (data) => {
     predictionOutput += data.toString();
   });
@@ -137,7 +136,7 @@ app.post("/predict", upload.single("image"), (req, res) => {
       const parsed = JSON.parse(jsonLine);
       const predictedLabel = parsed.predicted_label;
 
-      // Call Gemini API
+      // 🌐 Call Gemini
       const geminiResponse = await axios.post(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
         {
@@ -157,41 +156,33 @@ app.post("/predict", upload.single("image"), (req, res) => {
         geminiResponse.data.candidates?.[0]?.content?.parts?.[0]?.text ||
         "No info found.";
 
-      // === Save chat history ===
-      const token = req.headers.authorization?.split(" ")[1];
-      let userEmail = "anonymous";
-      if (token) {
-        try {
-          const decoded = jwt.verify(token, SECRET_KEY);
-          userEmail = decoded.email;
-        } catch (err) {
-          console.error("JWT decode failed:", err);
-        }
-      }
-      const imageUrl = req.file
-        ? `https://leafguard-ai-backend.onrender.com/uploads/${req.file.filename}`
-        : "";
+      const imageUrl = `/uploads/${req.file.filename}`;
 
       const newChat = await Chat.create({
         userEmail,
         imageUrl,
         prediction: predictedLabel,
         geminiInfo: geminiText,
-        // timestamp will be set automatically
+        questions: [],
       });
-
-      res.json({
+      if (!newChat || !newChat._id) {
+        console.error("Failed to create chat entry");
+        return res.status(500).json({ error: "Failed to create chat entry" });
+      }
+      await newChat.save();
+      // ✅ FINAL SINGLE RESPONSE
+      return res.json({
         prediction: predictedLabel,
         confidence: parsed.confidence,
         info: geminiText,
         imageUrl,
-        newChat, // Return the new chat object
+        newChat,
       });
-
-      //  fs.unlinkSync(imagePath);  Cleanup uploaded image
     } catch (err) {
       console.error("Prediction error:", err);
-      res.status(500).json({ error: "Failed to parse prediction output" });
+      return res
+        .status(500)
+        .json({ error: "Failed to parse prediction output" });
     }
   });
 });
@@ -204,6 +195,7 @@ app.get("/chat-history", async (req, res) => {
     const chats = await Chat.find({ userEmail: decoded.email }).sort({
       timestamp: -1,
     });
+
     res.json(chats);
   } catch (err) {
     res.status(401).json({ error: "Unauthorized" });

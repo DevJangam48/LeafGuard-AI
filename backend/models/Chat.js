@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const chatSchema = new mongoose.Schema({
+  userEmail: { type: String, required: true },
   imageUrl: { type: String, required: true },
   prediction: { type: String, required: true },
   geminiInfo: { type: String, required: true },
